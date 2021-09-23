@@ -31,11 +31,11 @@ class WooCommerceApi
                 'header_total'       => config('woocommerce.header_total') ?? 'X-WP-Total',
                 'header_total_pages' => config('woocommerce.header_total_pages') ?? 'X-WP-TotalPages',
             ];
-
+            $wooSettings = auth()->user()->tenant->wooSyncSetting;
             $this->client = new Client(
-                config('woocommerce.store_url'),
-                config('woocommerce.consumer_key'),
-                config('woocommerce.consumer_secret'),
+                $wooSettings->woocommerce_store_url,
+                $wooSettings->woocommerce_consumer_key,
+                $wooSettings->woocommerce_consumer_secret,
                 [
                     'version'           => 'wc/'.config('woocommerce.api_version'),
                     'wp_api'            => config('woocommerce.wp_api_integration'),
