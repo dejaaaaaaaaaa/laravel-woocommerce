@@ -69,14 +69,14 @@ trait QueryBuilderTrait
     protected function find($id, $options = [])
     {
         if ($this->isLazyCollection) {
-            return LazyCollection::make(WooCommerce::find("{$this->endpoint}/{$id}", $options));
+            return LazyCollection::make(WooCommerce::find("{$this->endpoint}{$id}", $options));
         }
 
         if ($this->isCollection) {
-            return collect(WooCommerce::find("{$this->endpoint}/{$id}", $options));
+            return collect(WooCommerce::find("{$this->endpoint}{$id}", $options));
         }
 
-        return WooCommerce::find("{$this->endpoint}/{$id}", $options);
+        return WooCommerce::find("{$this->endpoint}{$id}", $options);
     }
 
     /**
