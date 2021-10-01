@@ -44,14 +44,15 @@ trait QueryBuilderTrait
      *
      * @return array
      */
-    protected function all($options = [])
+    protected function all($records, $pageNumber, $options = [])
     {
+        $params = "?per_page=".$records."&page=".$pageNumber;
         if ($this->isLazyCollection) {
-            return LazyCollection::make(WooCommerce::all($this->endpoint, $options));
+            return LazyCollection::make(WooCommerce::all($this->endpoint.$params, $options));
         }
 
         if ($this->isCollection) {
-            return collect(WooCommerce::all($this->endpoint, $options));
+            return collect(WooCommerce::all($this->endpoint.$params, $options));
         }
 
         return WooCommerce::all($this->endpoint, $options);
