@@ -44,15 +44,14 @@ trait QueryBuilderTrait
      *
      * @return array
      */
-    protected function all($records, $pageNumber, $options = [])
+    protected function all($options = [])
     {
-        $params = "?per_page=".$records."&page=".$pageNumber;
         if ($this->isLazyCollection) {
-            return LazyCollection::make(WooCommerce::all($this->endpoint.$params, $options));
+            return LazyCollection::make(WooCommerce::all($this->endpoint, $options));
         }
 
         if ($this->isCollection) {
-            return collect(WooCommerce::all($this->endpoint.$params, $options));
+            return collect(WooCommerce::all($this->endpoint, $options));
         }
 
         return WooCommerce::all($this->endpoint, $options);
@@ -110,14 +109,14 @@ trait QueryBuilderTrait
     protected function update($id, $data)
     {
         if ($this->isLazyCollection) {
-            return LazyCollection::make(WooCommerce::update("{$this->endpoint}/{$id}", $data));
+            return LazyCollection::make(WooCommerce::update("{$this->endpoint}{$id}", $data));
         }
 
         if ($this->isCollection) {
-            return collect(WooCommerce::update("{$this->endpoint}/{$id}", $data));
+            return collect(WooCommerce::update("{$this->endpoint}{$id}", $data));
         }
 
-        return WooCommerce::update("{$this->endpoint}/{$id}", $data);
+        return WooCommerce::update("{$this->endpoint}{$id}", $data);
     }
 
     /**
@@ -131,14 +130,14 @@ trait QueryBuilderTrait
     protected function delete($id, $options = [])
     {
         if ($this->isLazyCollection) {
-            return LazyCollection::make(WooCommerce::delete("{$this->endpoint}/{$id}", $options));
+            return LazyCollection::make(WooCommerce::delete("{$this->endpoint}{$id}", $options));
         }
 
         if ($this->isCollection) {
-            return collect(WooCommerce::delete("{$this->endpoint}/{$id}", $options));
+            return collect(WooCommerce::delete("{$this->endpoint}{$id}", $options));
         }
 
-        return WooCommerce::delete("{$this->endpoint}/{$id}", $options);
+        return WooCommerce::delete("{$this->endpoint}{$id}", $options);
     }
 
     /**
@@ -151,14 +150,14 @@ trait QueryBuilderTrait
     protected function batch($data)
     {
         if ($this->isLazyCollection) {
-            return LazyCollection::make(WooCommerce::create("{$this->endpoint}/batch", $data));
+            return LazyCollection::make(WooCommerce::create("{$this->endpoint}batch", $data));
         }
 
         if ($this->isCollection) {
-            return collect(WooCommerce::create("{$this->endpoint}/batch", $data));
+            return collect(WooCommerce::create("{$this->endpoint}batch", $data));
         }
 
-        return WooCommerce::create("{$this->endpoint}/batch", $data);
+        return WooCommerce::create("{$this->endpoint}batch", $data);
     }
 
     /**
